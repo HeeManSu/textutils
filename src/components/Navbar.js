@@ -1,4 +1,4 @@
-import React from 'react' // It is a react function based component and shortcut  of importing it is rfc..
+import React from 'react' // It is a react function based component and its shortcut  of importing it is rfc..
 import PropTypes from 'prop-types'
 
 export default function Navbar(props) {
