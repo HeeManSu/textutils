@@ -40,9 +40,8 @@ export default function TextForm(props) {
   }
 
   const copyText = () => {
-    let newtext = document.getElementById('myBox')
-    newtext.select()
-    navigator.clipboard.writeText(newtext.value)
+    //It is navigator API.
+    navigator.clipboard.writeText(text)
     props.showAlert("Text has been copied to the clipboard", "success")
   }
 
@@ -66,7 +65,7 @@ export default function TextForm(props) {
         className="container"
         style={{ color: props.mode === 'dark' ? 'white' : 'black' }}
       >
-        <h1>{props.heading}</h1>
+        <h1 className='mb-4'>{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -80,25 +79,25 @@ export default function TextForm(props) {
             rows="8"
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpOnClick}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2 my" onClick={handleUpOnClick}>
           Convert To UpperCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLowOnClick}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2 my" onClick={handleLowOnClick}>
           Convert To LowerCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleOnClear}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2 my" onClick={handleOnClear}>
           Clear Text
         </button>
-        <button className="btn btn-primary mx-2" onClick={reverseText}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2 my" onClick={reverseText}>
           Reverse
         </button>
-        <button className="btn btn-primary mx-2" onClick={findWord}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2 my" onClick={findWord}>
           Find Word
         </button>
-        <button className="btn btn-primary mx-2" onClick={copyText}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2 my" onClick={copyText}>
           Copy
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>
+        <button disabled = {text.length===0} className="btn btn-primary mx-2" onClick={handleExtraSpaces}>
           Remove Extra Spaces
         </button>
       </div>
@@ -110,15 +109,15 @@ export default function TextForm(props) {
         <p>
           <b>
             {' '}
-            {text.split(' ').length} words and {text.length} characters
+            {text.split(/\s+/).filter((element) => {return element.length !== 0}).length} words and {text.length} characters
           </b>
         </p>
         <p>
-          <b> {0.008 * text.split(' ').length} Minutes read </b>
+          <b> {0.008 * text.split(' ').filter((element) => {return element.length !== 0}).length} Minutes read </b>
         </p>
 
         <h2>Preview</h2>
-        <p>{text.length > 0 ? text: "Enter something in the textbox to preview it here"}</p>
+        <p>{text.length > 0 ? text: "Nothing to preview"}</p>
         
       </div>
     </>
